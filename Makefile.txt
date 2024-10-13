@@ -1,0 +1,25 @@
+CC = g++
+CFLAGS = -Wall -Wextra -std=c++11
+TARGET = my_program
+LIBRARY = libcalculator.a
+
+
+OBJECTS = calculator.o main.o
+
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) -L. -lcalculator
+
+calculator.o: calculator.cpp
+	$(CC) $(CFLAGS) -c calculator.cpp
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) -c main.cpp
+
+libcalculator.a: calculator.o
+	ar rcs libcalculator.a calculator.o
+
+clean:
+	rm -f $(OBJECTS) $(TARGET) libcalculator.a
